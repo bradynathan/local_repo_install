@@ -1,0 +1,6 @@
+---
+# defaults file for local_repo_install
+local_repo_target_path: /opt/repos
+#local_repo_source_archive:
+#local_repo_name:
+#local_repo_description:

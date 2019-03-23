@@ -1,0 +1,19 @@
+---
+# ansible-playbook -i 192.168.50.60, install_vagrant.yml
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: Set vagrant password
+      set_fact: ansible_ssh_pass=vagrant
+      delegate_to: localhost
+
+- hosts: all
+  remote_user: vagrant
+  gather_facts: false
+  become: true
+  vars:
+    local_repo_source_archive: /tmp/local_repo/elastic.tgz
+    local_repo_name: elastic
+    local_repo_description: Elastic Search 6.x
+  roles:
+    - ../../local_repo_install

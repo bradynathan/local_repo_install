@@ -1,0 +1,21 @@
+---
+# tasks file for local_repo_install
+- name: Make sure the target directory exist
+  file:
+    path: "{{ local_repo_target_path }}"
+    state: directory
+
+- name: Extract the repository on target
+  unarchive:
+    src: "{{ local_repo_source_archive }}"
+    dest: "{{ local_repo_target_path }}"
+  register: extraction_result
+
+- name: Add yum repository
+  yum_repository:
+    name: "{{ local_repo_name }}"
+    description: "{{ local_repo_description }}"
+    baseurl: file://{{ local_repo_target_path }}/{{ local_repo_name }}
+    enabled: yes
+    keepcache: no
+    gpgcheck: no
